@@ -1,0 +1,16 @@
+.color-game{
+    background-color: gray;
+    ul{
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        
+
+        li{
+            height: 100px;
+            width: 100px;
+            list-style-type: none;
+        }
+    }
+}
