@@ -1,4 +1,5 @@
-import { randomColor } from "../../functions/randomColor";
+import { randomColor } from "./randomColor";
+
 
 export function generateColors (difficultyLevel){
     if (difficultyLevel === "Easy") {

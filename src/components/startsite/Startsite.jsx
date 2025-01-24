@@ -4,6 +4,7 @@ const Startsite = () => {
     <>
       <h1>Multiverse</h1>
       <NavLink to="/color-game">Color Game</NavLink>
+      <NavLink to="/memory">Memory</NavLink>
       <Outlet />
     </>
   );
