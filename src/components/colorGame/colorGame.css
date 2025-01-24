@@ -1,16 +1,139 @@
-.color-game{
-    background-color: gray;
-    ul{
-        display: flex;
-        justify-content: center;
-        gap: 30px;
-        flex-wrap: wrap;
-        
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Silkscreen:wght@400;700&display=swap");
 
-        li{
-            height: 100px;
-            width: 100px;
-            list-style-type: none;
-        }
+:root {
+  --primary-color: #007bff;
+  --hover-color: #0056b3;
+  --gray-color: gray;
+  --red-color: rgba(255, 0, 0, 0.5);
+  --box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.color-game {
+  text-align: center;
+  font-family: "Caveat", Arial;
+  color: white;
+  border-radius: 20px;
+  .color-header {
+    background: linear-gradient(
+      to right,
+      #09192b,
+      #0066cc,
+      #a0a0a0,
+      #004a99,
+      #061627
+    );
+    padding: 40px;
+    box-shadow: var(--box-shadow);
+    width: max-content;
+    margin: 0 auto;
+    border-radius: 20px;
+  }
+
+  i {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+  }
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: white;
+    transition: background-color 0.3s;
+    box-shadow: var(--box-shadow);
+
+    &:hover {
+      background-color: var(--hover-color);
     }
+    &:active {
+      box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px,
+        rgba(0, 0, 0, 0.15) 0px -36px 30px 0px,
+        rgba(0, 0, 0, 0.1) 0px -79px 40px 0px,
+        rgba(0, 0, 0, 0.06) 0px 2px 1px inset,
+        rgba(0, 0, 0, 0.09) 0px 4px 2px inset,
+        rgba(0, 0, 0, 0.09) 0px 8px 4px inset,
+        rgba(0, 0, 0, 0.09) 0px 16px 8px inset,
+        rgba(0, 0, 0, 0.09) 0px 32px 16px inset;
+    }
+  }
+
+  select {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  ul {
+    background: linear-gradient(
+      to right,
+      #09192b,
+      #0066cc,
+      #a0a0a0,
+      #004a99,
+      #061627
+    );
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 20px;
+    padding: 50px;
+    margin: 0 auto;
+    width: 80%;
+    box-shadow: var(--box-shadow);
+    border-radius: 20px;
+    margin: 0 auto;
+
+    li {
+      height: 100px;
+      width: 100px;
+      list-style-type: none;
+      transition: 0.5s all ease-in-out;
+      box-shadow: var(--box-shadow);
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &.wrong {
+        animation: shake 0.5s;
+        background-color: var(--red-color) !important;
+      }
+
+      i {
+        font-size: 90px;
+        color: transparent;
+      }
+    }
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

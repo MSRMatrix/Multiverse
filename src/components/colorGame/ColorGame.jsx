@@ -1,67 +1,68 @@
 import { useState } from "react";
-import { randomColor } from "../functions/randomColor";
-import "./colorGame.css"
+import "./colorGame.css";
+import { generateColors } from "./colorFunctions/generateColors";
+import { pickColor } from "./colorFunctions/pickColor";
+import { resetColors } from "./colorFunctions/resetColors";
+import { handleDifficultyChange } from "./colorFunctions/handleDifficutlyChange";
 
 const ColorGame = () => {
-    const [colors, setColors] = useState([
-        {color: randomColor()},
-        {color: randomColor()},
-        {color: randomColor()},
-        {color: randomColor()},
-        {color: randomColor()},
-        {color: randomColor()},
-    ])
+  const [counter, setCounter] = useState(0);
+  const [message, setMessage] = useState("");
+  const [difficulty, setDifficulty] = useState("Normal");
+  const [colors, setColors] = useState(generateColors(difficulty));
+  const [colorToWin, setColorToWin] = useState(
+    colors[Math.floor(Math.random() * colors.length)].color
+  );
 
-    const [colorToWin, setColorToWin] = useState(colors[Math.floor(Math.random() * colors.length)].color)
 
-    console.log(colorToWin);
-    
+  function difficultyEmoji(difficulty){
+    if (difficulty === "Easy") {
+        return <i className="fa-regular fa-face-laugh-beam"></i>
+      }
+      if (difficulty === "Normal") {
+        return <i className="fa-regular fa-face-smile-beam"></i>
+      }
+      if (difficulty === "Hard") {
+        return <i className="fa-regular fa-face-meh"></i>
+      }
+      if (difficulty === "Expert") {
+        return <i className="fa-regular fa-face-frown"></i>
+      }
+  }
 
-    function pickColor(e){
-        const clickedColor = e.target.style.background
-        console.log(clickedColor.trim());
-        console.log(colorToWin);
+  return (
+    <div className="color-game">
+        <div className="color-header">
+      <h1>Color Game</h1>
+      <button onClick={() => resetColors(difficulty, setMessage, setCounter, setColorToWin, setColors)}>New Game</button>
+      <select value={difficulty} onChange={(e) => handleDifficultyChange(e, setMessage, setCounter, setColorToWin, setColors, setDifficulty)}>
+        <option value="Easy">Easy</option>
+        <option value="Normal">Normal</option>
+        <option value="Hard">Hard</option>
+        <option value="Expert">Expert</option>
         
-        if(clickedColor !== colorToWin){
-            const newColors = colors.filter((item) => item.color !== clickedColor);
-            console.log(`Try Again!`);
-            
-             setColors(newColors)
-            console.log(colors);
-            
-            return
-        }else{
-            console.log(`Nice work!`);
-            
-        }
-    }    
-
-    function resetColors(){
-        setColors([
-            {color: randomColor()},
-            {color: randomColor()},
-            {color: randomColor()},
-            {color: randomColor()},
-            {color: randomColor()},
-            {color: randomColor()},
-        ])
-        return
-    }
-    
-    return(
-        <div className="color-game">
-        <h2>Color Game</h2>
-        <button onClick={resetColors}>New Game</button><button>Easy</button>
-        <p></p>
-        <ul onClick={(e) => pickColor(e)}>
-            {colors.map((item, key) => 
-               <li style={{background: item.color || "white"}} key={key}></li>
-                
-                
-            )}
-        </ul>
-        </div>
-    )
-}
+      </select>{difficultyEmoji(difficulty)}
+      {!message ? (
+        <h2>
+          Can you guess which color is: <strong>{colorToWin}</strong>?
+        </h2>
+      ) : (
+        ""
+      )}
+      <h1>{message || `${colors.length / 2 - counter} attempts remaining!`}</h1> 
+      </div>
+      <ul>
+        {colors.map((item, index) => (
+          <li
+            key={index}
+            className={item.isWrong ? "wrong" : ""}
+            style={{ background: item.color, cursor: message === "You lose!" || item.color === "rgba(0, 0, 0, 0)"  ? "not-allowed" : "pointer"}}
+            onClick={(e) => pickColor(e.target.style.background, counter, colors, message, colorToWin, setColors, setMessage, setCounter)}
+          ></li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default ColorGame;
