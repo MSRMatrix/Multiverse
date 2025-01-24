@@ -17,6 +17,7 @@
   font-family: "Caveat", Arial;
   color: white;
   border-radius: 20px;
+
   .color-header {
     background: linear-gradient(
       to right,
@@ -28,9 +29,21 @@
     );
     padding: 40px;
     box-shadow: var(--box-shadow);
-    width: max-content;
+    width: 80%;
     margin: 0 auto;
     border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+
+    @media (max-width: 768px) {
+      width: 90%;
+      padding: 30px;
+    }
+
+    @media (max-width: 480px) {
+      width: 95%;
+      padding: 20px;
+    }
   }
 
   i {
@@ -39,6 +52,7 @@
     justify-content: center;
     flex-direction: row;
   }
+
   button {
     margin: 10px;
     padding: 10px 20px;
@@ -106,6 +120,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      margin: 0 auto;
 
       &.wrong {
         animation: shake 0.5s;
