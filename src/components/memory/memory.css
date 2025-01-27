@@ -1,7 +1,13 @@
 .cards-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 60px;
     img{
     height: 100px;
     width: 100px;    
+    border-radius: 5px;
     }
     
 }

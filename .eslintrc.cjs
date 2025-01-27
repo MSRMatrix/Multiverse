@@ -17,6 +17,7 @@ module.exports = {
     'react/prop-types': 'off',
     'react/no-unescaped-entities': 'off',
     'react/jsx-key': 'off',
+    'no-extra-semi' : 'off',
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
