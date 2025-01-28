@@ -72,27 +72,21 @@ import cars20 from "../cards/cars/tyler-clemmensen-4gSavS9pe1s-unsplash.jpg"
 
 
 export function changeDifficulty(e, cards, setCards, difficulty, cardChooser, setDifficulty, setCardChooser) {
-  const newDifficulty = e.target.value; // Der neue Schwierigkeitsgrad
-  setDifficulty(newDifficulty); // Schwierigkeitsgrad setzen (asynchron)
+  const newDifficulty = e.target.value; 
+  setDifficulty(newDifficulty); 
   
-  // Verwende den neuen Schwierigkeitsgrad direkt, anstatt den Zustand 'difficulty' zu verwenden
   const cardNumber = cardNumberFunction(newDifficulty);
   
-  // Hole die Bilder basierend auf dem Thema
   const selectedImages = cutePictures(e, cardChooser);
   
-  // Sicherstellen, dass nur einzigartige Bilder ausgewählt werden
   const uniqueImages = [...new Set(selectedImages)];
 
-  // Zufällig die gewünschte Anzahl an Bildern auswählen
   const imagesToShow = uniqueImages
-    .sort(() => Math.random() - 0.5) // Mischen
-    .slice(0, cardNumber); // Anzahl der Karten auswählen
+    .sort(() => Math.random() - 0.5)
+    .slice(0, cardNumber); 
 
-  // Verdoppeln der Karten für Paare
   const pairedCards = [...imagesToShow, ...imagesToShow];
 
-  // Zufällig mischen
   const shuffledCards = pairedCards.sort(() => Math.random() - 0.5);
   
   setCards(
@@ -105,7 +99,7 @@ export function changeDifficulty(e, cards, setCards, difficulty, cardChooser, se
     }))
   );
 
-  console.log(cards); // Gibt die Karten aus
+  console.log(cards); 
 }
 
 function cardNumberFunction(difficulty) {
@@ -119,7 +113,7 @@ function cardNumberFunction(difficulty) {
     case "Expert":
       return 18;
     default:
-      console.log(`Kein Schwierigkeitsgrad ausgewählt!`);
+      console.log(`No difficulty choosed!`);
       return 5;
   }
 }

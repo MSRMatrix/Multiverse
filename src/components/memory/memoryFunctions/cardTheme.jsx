@@ -81,9 +81,8 @@ export function cardTheme(
   difficulty
 ) {
   const selectedTheme = e.target.value;
-  setCardChooser(selectedTheme); // Setze den Wert
+  setCardChooser(selectedTheme);
 
-  // Wähle das Thema basierend auf dem ausgewählten Wert
   if (selectedTheme === "Memes") {
     const newCardDeck = [
       meme1,
@@ -173,13 +172,13 @@ export function cardTheme(
 function cardNumberFunction(difficulty) {
   switch (difficulty) {
     case "Easy":
-      return 5;
+      return 9;
     case "Normal":
-      return 10;
+      return 12;
     case "Hard":
       return 15;
     case "Expert":
-      return 20;
+      return 18;
     default:
       console.log(`No difficulty choosed!`);
       return 5;
@@ -189,18 +188,14 @@ function cardNumberFunction(difficulty) {
 function changeDifficulty(cards, setCards, difficulty, newCardDeck) {
   const cardNumber = cardNumberFunction(difficulty);
 
-  // Sicherstellen, dass nur einzigartige Bilder ausgewählt werden
   const uniqueImages = [...new Set(newCardDeck)];
 
-  // Zufällig  die gewünschte Anzahl an Bildern auswählen
   const selectedImages = uniqueImages
-    .sort(() => Math.random() - 0.5) // Mischen
-    .slice(0, cardNumber); // Anzahl der Karten auswählen
+    .sort(() => Math.random() - 0.5)
+    .slice(0, cardNumber);
 
-  // Verdoppeln der Karten für Paare
   const pairedCards = [...selectedImages, ...selectedImages];
 
-  // Zufällig mischen
   const shuffledCards = pairedCards.sort(() => Math.random() - 0.5);
 
   setCards(

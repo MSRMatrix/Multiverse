@@ -19,12 +19,7 @@ const Memory = () => {
   const [counter, setCounter] = useState(0)
 
 //   Muss noch entfernt und ausgetauscht werden
-  const [cards, setCards] = useState([
-    { id: 1, name: "Card 1", image: sample, revealed: false, found: false },
-    { id: 3, name: "Card 3", image: sample, revealed: false, found: false },
-    { id: 4, name: "Card 4", image: test, revealed: false, found: false },
-    { id: 6, name: "Card 6", image: test, revealed: false, found: false },
-  ]);
+  const [cards, setCards] = useState([]);
   //   Muss noch entfernt und ausgetauscht werdenk
 
   return (
