@@ -15,7 +15,7 @@ const Memory = () => {
     attempts: 0,
   });
   const [difficulty, setDifficulty] = useState("Normal");
-  const [cardChooser, setCardChooser] = useState("Memes");
+  const [cardChooser, setCardChooser] = useState("" || "Memes");
   const [counter, setCounter] = useState(0)
 
 //   Muss noch entfernt und ausgetauscht werden
@@ -25,7 +25,7 @@ const Memory = () => {
     { id: 4, name: "Card 4", image: test, revealed: false, found: false },
     { id: 6, name: "Card 6", image: test, revealed: false, found: false },
   ]);
-  //   Muss noch entfernt und ausgetauscht werden
+  //   Muss noch entfernt und ausgetauscht werdenk
 
   return (
     <div className="memory">
@@ -35,7 +35,7 @@ const Memory = () => {
       </button>
       <select
         value={difficulty}
-        onChange={(e) => changeDifficulty(e, setDifficulty, difficulty)}
+        onChange={(e) => changeDifficulty(e, cards, setCards, difficulty, cardChooser, setDifficulty, setCardChooser)}
       >
         <option value="Easy">Easy</option>
         <option value="Normal">Normal</option>
