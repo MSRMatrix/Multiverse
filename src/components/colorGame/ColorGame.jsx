@@ -49,7 +49,7 @@ const ColorGame = () => {
       ) : (
         ""
       )}
-      <h1>{message || `${colors.length / 2 - counter} attempts remaining!`}</h1> 
+      <h1>{message || `${Math.ceil(colors.length / 2 - counter)} attempts remaining!`}</h1> 
       </div>
       <ul>
         {colors.map((item, index) => (
