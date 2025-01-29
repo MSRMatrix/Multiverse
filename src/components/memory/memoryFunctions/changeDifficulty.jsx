@@ -71,11 +71,11 @@ import cars20 from "../cards/cars/tyler-clemmensen-4gSavS9pe1s-unsplash.jpg"
 // Cars
 
 
-export function changeDifficulty(e, cards, setCards, difficulty, cardChooser, setDifficulty, setCardChooser) {
+export function changeDifficulty(e, cards, setCards, difficulty, cardChooser, setDifficulty, setCardChooser, setNewClass) {
   const newDifficulty = e.target.value; 
   setDifficulty(newDifficulty); 
   
-  const cardNumber = cardNumberFunction(newDifficulty);
+  const cardNumber = cardNumberFunction(newDifficulty, setNewClass);
   
   const selectedImages = cutePictures(e, cardChooser);
   
@@ -102,15 +102,19 @@ export function changeDifficulty(e, cards, setCards, difficulty, cardChooser, se
   console.log(cards); 
 }
 
-function cardNumberFunction(difficulty) {
+function cardNumberFunction(difficulty, setNewClass) {
   switch (difficulty) {
     case "Easy":
-      return 9;
+      setNewClass("less-cards")
+      return 3;
     case "Normal":
-      return 12;
+      setNewClass("less-cards")
+      return 6;
     case "Hard":
-      return 15;
+      setNewClass("")
+      return 12;
     case "Expert":
+      setNewClass("")
       return 18;
     default:
       console.log(`No difficulty choosed!`);

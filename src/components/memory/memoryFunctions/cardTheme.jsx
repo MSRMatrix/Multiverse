@@ -78,7 +78,8 @@ export function cardTheme(
   setCardChooser,
   cards,
   setCards,
-  difficulty
+  difficulty,
+  setNewClass
 ) {
   const selectedTheme = e.target.value;
   setCardChooser(selectedTheme);
@@ -107,7 +108,7 @@ export function cardTheme(
       meme20,
     ];
 
-    changeDifficulty(cards, setCards, difficulty, newCardDeck);
+    changeDifficulty(cards, setCards, difficulty, newCardDeck, setNewClass);
     console.log("Memes ausgewählt");
   } else if (selectedTheme === "Tropical") {
     const newCardDeck = [
@@ -133,13 +134,13 @@ export function cardTheme(
       tropical20,
     ];
 
-    changeDifficulty(cards, setCards, difficulty, newCardDeck);
+    changeDifficulty(cards, setCards, difficulty, newCardDeck, setNewClass);
     console.log("Tropical ausgewählt");
   } else if (selectedTheme === "Animes") {
     const newCardDeck = [
       // Hier werden deine Anime-Bilder eingefügt
     ];
-    changeDifficulty(cards, setCards, difficulty, newCardDeck);
+    changeDifficulty(cards, setCards, difficulty, newCardDeck, setNewClass);
     console.log("Animes ausgewählt");
   } else if (selectedTheme === "Cars") {
     const newCardDeck = [
@@ -164,20 +165,24 @@ export function cardTheme(
       cars19,
       cars20,
     ];
-    changeDifficulty(cards, setCards, difficulty, newCardDeck);
+    changeDifficulty(cards, setCards, difficulty, newCardDeck, setNewClass);
   }
 }
 
 
-function cardNumberFunction(difficulty) {
+function cardNumberFunction(difficulty, setNewClass) {
   switch (difficulty) {
     case "Easy":
-      return 9;
+      setNewClass("less-cards")
+      return 3;
     case "Normal":
-      return 12;
+      setNewClass("less-cards")
+      return 6;
     case "Hard":
-      return 15;
+      setNewClass("")
+      return 12;
     case "Expert":
+      setNewClass("")
       return 18;
     default:
       console.log(`No difficulty choosed!`);
@@ -185,8 +190,8 @@ function cardNumberFunction(difficulty) {
   }
 }
 
-function changeDifficulty(cards, setCards, difficulty, newCardDeck) {
-  const cardNumber = cardNumberFunction(difficulty);
+function changeDifficulty(cards, setCards, difficulty, newCardDeck, setNewClass) {
+  const cardNumber = cardNumberFunction(difficulty, setNewClass);
 
   const uniqueImages = [...new Set(newCardDeck)];
 

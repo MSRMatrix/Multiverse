@@ -19,7 +19,7 @@
   border-radius: 20px;
 
   .color-header {
-    background:#0f172a;
+    background: #0f172a;
     padding: 40px;
     box-shadow: var(--box-shadow);
     width: 80%;
@@ -79,10 +79,11 @@
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    cursor: pointer;
   }
 
   ul {
-    background:#0f172a;
+    background: #0f172a;
     display: grid;
     justify-content: center;
     align-items: center;
@@ -139,9 +140,9 @@
   }
 }
 
-@media (max-width: 800px){
-  .color-game{
-    li{
+@media (max-width: 800px) {
+  .color-game {
+    li {
       height: 50% !important;
       width: 50% !important;
       min-height: 50px;
@@ -150,9 +151,9 @@
   }
 }
 
-@media (max-width: 400px){
-  .color-game{
-    li{
+@media (max-width: 400px) {
+  .color-game {
+    li {
       height: 50% !important;
       width: 50% !important;
       min-height: 30px;
