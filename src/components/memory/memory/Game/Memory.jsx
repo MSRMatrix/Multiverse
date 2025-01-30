@@ -1,8 +1,7 @@
 import { NavLink } from "react-router";
-import questionMark from "./cards/question-mark.png";
+import questionMark from "../../cards/question-mark.png";
 import "./memory.css";
-import { clickPicture } from "./memoryFunctions/clickPicture";
-
+import { clickPicture } from "../../memoryFunctions/clickPicture";
 const Memory = ({
   clickState,
   setClickState,
