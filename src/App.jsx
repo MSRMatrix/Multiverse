@@ -16,11 +16,6 @@ function App() {
         },
         { element: <MemoryMenu />, 
           path: "/memory" ,
-          children: [
-            {element: <Memory />,
-              path: "game"
-            }
-          ]
         },
       ],
     },

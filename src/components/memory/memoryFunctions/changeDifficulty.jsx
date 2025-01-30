@@ -98,8 +98,6 @@ export function changeDifficulty(e, cards, setCards, difficulty, cardChooser, se
       found: false,
     }))
   );
-
-  console.log(cards); 
 }
 
 function cardNumberFunction(difficulty, setNewClass) {

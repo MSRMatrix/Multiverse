@@ -11,13 +11,13 @@ const Memory = ({
   newClass,
   setCounter,
   counter,
-  setGameStarted,
+  setGameStarted, setCardChooser, setDifficulty
 }) => {
   return (
     <>
       <div className="memory">
         
-        <NavLink onClick={() =>{ setGameStarted(false), setCounter(0)}} to="/memory">
+        <NavLink onClick={() =>{ setGameStarted(false), setCounter(0), setCards([]),  setCardChooser(""), setDifficulty("")}} to="/memory">
           Back
         </NavLink>
         <p>attempts: {counter}</p>

@@ -4,6 +4,8 @@ import { changeDifficulty } from "./memoryFunctions/changeDifficulty";
 import { newGame } from "./memoryFunctions/newGame";
 import { useState } from "react";
 import Memory from "./Memory";
+import "./memoryMenu.css"
+import FinishedGame from "./FinishedGame";
 
 const MemoryMenu = () => {
   const [clickState, setClickState] = useState({
@@ -18,10 +20,18 @@ const MemoryMenu = () => {
   const [cardChooser, setCardChooser] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
 
+  console.log(cards.map((item) => item.found).includes(false));
+  
+  
+  
+
   return (
     <>
       {!gameStarted ? (
-        <dialog open>
+        <dialog open className="memory-menu">
+          <h1>Memory Menu</h1>
+          <div className="card-difficulty">
+          <h2>Difficulty</h2>
           <select
             value={difficulty}
             onChange={(e) =>
@@ -43,7 +53,10 @@ const MemoryMenu = () => {
             <option value="Hard">Hard</option>
             <option value="Expert">Expert</option>
           </select>
+          </div>
 
+          <div className="card-theme">
+          <h2>Card Theme</h2>
           <select
             value={cardChooser}
             onChange={(e) =>
@@ -65,10 +78,13 @@ const MemoryMenu = () => {
             <option value="Animes">Animes</option>
             <option value="Cars">Cars</option>
           </select>
+          </div>
+
           <button disabled={!cardChooser || !difficulty} onClick={() => setGameStarted(true)}>Start Game</button>
         </dialog>
       ) : (
-        <Memory
+        cards.map((item) => item.found).includes(false) ? 
+        (<Memory
           clickState={clickState}
           setClickState={setClickState}
           cards={cards}
@@ -77,7 +93,9 @@ const MemoryMenu = () => {
           setCounter={setCounter}
           counter={counter}
           setGameStarted={setGameStarted}
-        />
+          setCardChooser={setCardChooser}
+          setDifficulty={setDifficulty}
+        /> ): <FinishedGame setClickState={setClickState} cards={cards} setCards={setCards} setCounter={setCounter} setGameStarted={setGameStarted} setCardChooser={setCardChooser} setDifficulty={setDifficulty}/>
       )}
     </>
   );
