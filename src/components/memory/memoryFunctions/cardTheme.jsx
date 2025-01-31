@@ -83,7 +83,8 @@ export function cardTheme(
 ) {
   const selectedTheme = e.target.value;
   setCardChooser(selectedTheme);
-
+  
+  
   if (selectedTheme === "Memes") {
     const newCardDeck = [
       meme1,
@@ -171,24 +172,29 @@ export function cardTheme(
 
 
 function cardNumberFunction(difficulty, setNewClass) {
-  switch (difficulty) {
-    case "Easy":
-      setNewClass("less-cards")
-      return 3;
-    case "Normal":
-      setNewClass("less-cards")
-      return 6;
-    case "Hard":
-      setNewClass("")
-      return 12;
-    case "Expert":
-      setNewClass("")
-      return 18;
-    default:
-      console.log(`No difficulty choosed!`);
-      return 5;
+  let cardNumber;
+
+  if (difficulty === "Easy") {
+    setNewClass("less-cards");
+    cardNumber = 3;
+  } else if (difficulty === "Normal") {
+    setNewClass("less-cards");
+    cardNumber = 6;
+  } else if (difficulty === "Hard") {
+    setNewClass("");
+    cardNumber = 12;
+  } else if (difficulty === "Expert") {
+    setNewClass("");
+    cardNumber = 18;
+  } else {
+    console.log(`No difficulty chosen!`);
+    setNewClass("");
+    cardNumber = 5; 
   }
+
+  return cardNumber;
 }
+
 
 function changeDifficulty(cards, setCards, difficulty, newCardDeck, setNewClass) {
   const cardNumber = cardNumberFunction(difficulty, setNewClass);
@@ -212,4 +218,5 @@ function changeDifficulty(cards, setCards, difficulty, newCardDeck, setNewClass)
       found: false,
     }))
   );
+  console.log(difficulty);
 }

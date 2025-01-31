@@ -19,6 +19,10 @@ const MemoryMenu = () => {
   const [difficulty, setDifficulty] = useState("");
   const [cardChooser, setCardChooser] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
+  const [gameTime, setGameTime] = useState({
+    seconds: 0,
+    minutes: 0,
+  });
 
   return (
     <>
@@ -72,7 +76,6 @@ const MemoryMenu = () => {
                     cards,
                     setCards,
                     difficulty,
-                    setDifficulty,
                     setNewClass
                   )
                 }
@@ -112,6 +115,8 @@ const MemoryMenu = () => {
           setGameStarted={setGameStarted}
           setCardChooser={setCardChooser}
           setDifficulty={setDifficulty}
+          gameTime={gameTime}
+          setGameTime={setGameTime}
         />
       ) : (
         <FinishedGame
@@ -122,6 +127,9 @@ const MemoryMenu = () => {
           setGameStarted={setGameStarted}
           setCardChooser={setCardChooser}
           setDifficulty={setDifficulty}
+          difficulty={difficulty}
+          gameTime={gameTime}
+          setGameTime={setGameTime}
         />
       )}
     </>
