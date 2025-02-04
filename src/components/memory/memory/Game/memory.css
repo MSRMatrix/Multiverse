@@ -1,10 +1,10 @@
 .cards-container {
     display: grid;
+    margin: 0 auto;
     grid-template-columns: repeat(6, 1fr); 
     gap: 10px;
-    justify-content: center;
-    align-items: center;
-    padding: 2vw;
+    padding: 10px;
+    width: 700px;
   }
   
   .card-wrapper {
@@ -14,7 +14,6 @@
     padding-top: 100%; 
     overflow: hidden; 
     border-radius: 5px;
-    background-color: aliceblue;
     max-width: 100px;
     max-height: 100px;
   }
@@ -30,9 +29,72 @@
     object-fit: cover;
     border-radius: 5px;
     transition: all 0.3s ease;
+    cursor: pointer;
+    transition: all 1s ease-in-out; 
   }
   
-  @media (max-width: 1000px) {
+
+  .flipped{
+    transform: rotateY(180deg);
+  }
+
+  .back-flipped{
+    transform: rotateY(0deg);
+  }
+
+
+.easy-cards{
+    display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.normal-cards{
+  display: grid;
+grid-template-columns: repeat(4, 1fr);
+
+}
+
+.normal-cards,.easy-cards{
+  width: 400px;
+}
+
+
+
+.memory{
+  background-color: #1E293B;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+      rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+      rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+      rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+      rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+      width: fit-content;
+      border-radius: 10px;
+  margin: 0 auto;
+  border: #6d28d9 5px solid;
+  .memory-top{
+    background-color: #5b6278;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+}
+
+.back-xmark{
+  cursor: pointer;
+  font-size: 30px;
+  padding: 10px;
+  color: #1E293B;
+
+  &:hover{
+    color: #3373da;
+  }
+}
+
+.attempts-difficulty-timer{
+  display: flex;
+  justify-content: space-around;
+}  
+
+@media (max-width: 1000px) {
     .cards-container img {
       width: 100%; 
       height: 100%;
@@ -42,8 +104,28 @@
       padding-top: 100%;
     }
   }
+
+  @media (max-width: 800px){
+    .cards-container{
+      width: 400px;
+    }
+  }
   
   @media (max-width: 600px) {
+    .attempts-difficulty-timer{
+      p{
+    font-size: 10px;
+   }
+    }
+   .back-xmark{
+    font-size: 25px;
+   }
+.normal-cards,.easy-cards{
+  width: 300px;
+}
+.cards-container{
+  width: 300px;
+}
     .cards-container img {
       width: 100%;
       height: 100%;
@@ -54,8 +136,3 @@
     }
   }
   
-
-.less-cards{
-    display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}

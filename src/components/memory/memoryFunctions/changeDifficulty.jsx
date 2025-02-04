@@ -103,10 +103,10 @@ export function changeDifficulty(e, cards, setCards, difficulty, cardChooser, se
 function cardNumberFunction(difficulty, setNewClass) {
   switch (difficulty) {
     case "Easy":
-      setNewClass("less-cards")
+      setNewClass("easy-cards")
       return 3;
     case "Normal":
-      setNewClass("less-cards")
+      setNewClass("normal-cards")
       return 6;
     case "Hard":
       setNewClass("")

@@ -117,6 +117,7 @@ const MemoryMenu = () => {
           setDifficulty={setDifficulty}
           gameTime={gameTime}
           setGameTime={setGameTime}
+          difficulty={difficulty}
         />
       ) : (
         <FinishedGame

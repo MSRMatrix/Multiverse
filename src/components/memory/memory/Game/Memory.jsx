@@ -1,8 +1,8 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import questionMark from "../../cards/question-mark.png";
 import "./memory.css";
 import { clickPicture } from "../../memoryFunctions/clickPicture";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 const Memory = ({
   clickState,
   setClickState,
@@ -16,7 +16,17 @@ const Memory = ({
   setDifficulty,
   gameTime,
   setGameTime,
+  difficulty
 }) => {
+
+  const navigate = useNavigate()
+  const [flipped, setFlipped] = useState({
+    classname: "",
+    firstId: "",
+    secondId: ""
+  })
+  console.log(clickState);
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setGameTime((prevTime) => {
@@ -37,31 +47,40 @@ const Memory = ({
   return (
     <>
       <div className="memory">
-        <NavLink
-          onClick={() => {
-            setGameStarted(false),
-              setCounter(0),
-              setCards([]),
-              setCardChooser(""),
-              setDifficulty(""),
-              setGameTime({
-                seconds: 0,
-                minutes: 0,
-              });
-          }}
-          to="/memory"
-        >
-          Back
-        </NavLink>
-        <p>attempts: {counter}</p>
-        <p>
-          Time: {gameTime.minutes <= 10 ? `0${gameTime.minutes}`: gameTime.minutes}:
-          {gameTime.seconds >= 10 ? gameTime.seconds : `0${gameTime.seconds}`}
-        </p>
+        <div className="memory-top">
+          <i onClick={() => {
+              setGameStarted(false),
+                setCounter(0),
+                setCards([]),
+                setCardChooser(""),
+                setDifficulty(""),
+                setGameTime({
+                  seconds: 0,
+                  minutes: 0,
+                },navigate("/memory"));
+            }} className="fa-regular fa-rectangle-xmark back-xmark"></i>
+        <div className="attempts-difficulty-timer"> 
+          <p>attempts: {counter}</p>
+          <p>{difficulty}</p>
+          <p>
+            Time:{" "}
+            {gameTime.minutes < 10 ? `0${gameTime.minutes}` : gameTime.minutes}:
+            {gameTime.seconds >= 10 ? gameTime.seconds : `0${gameTime.seconds}`}
+          </p>
+          </div> 
+        </div>
+
         <div className={`cards-container ${newClass}`}>
           {cards.map((item) => (
             <div className="card-wrapper" key={item.id}>
-              <img
+              <img className={flipped.firstId === item.id || flipped.secondId === item.id || item.found ? flipped.classname : ""}
+                style={{
+                  cursor:
+                    item.revealed ||
+                    (clickState.firstCard && clickState.secondCard)
+                      ? "default"
+                      : "",
+                }}
                 onClick={(e) =>
                   clickPicture(
                     e,
@@ -71,7 +90,9 @@ const Memory = ({
                     clickState,
                     setClickState,
                     setCounter,
-                    counter
+                    counter,
+                    flipped,
+                    setFlipped
                   )
                 }
                 src={item.revealed ? item.image : questionMark}

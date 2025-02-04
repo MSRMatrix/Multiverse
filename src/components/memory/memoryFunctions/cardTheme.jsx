@@ -175,10 +175,10 @@ function cardNumberFunction(difficulty, setNewClass) {
   let cardNumber;
 
   if (difficulty === "Easy") {
-    setNewClass("less-cards");
+    setNewClass("easy-cards");
     cardNumber = 3;
   } else if (difficulty === "Normal") {
-    setNewClass("less-cards");
+    setNewClass("normal-cards");
     cardNumber = 6;
   } else if (difficulty === "Hard") {
     setNewClass("");
