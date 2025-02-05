@@ -35,7 +35,12 @@
   
 
   .flipped{
+    visibility: hidden;
     transform: rotateY(180deg);
+  }
+
+  .revealed-card{
+    visibility: visible;
   }
 
   .back-flipped{
@@ -58,7 +63,9 @@ grid-template-columns: repeat(4, 1fr);
   width: 400px;
 }
 
-
+.memory-images{
+  visibility: hidden;
+}
 
 .memory{
   background-color: #1E293B;
@@ -135,4 +142,3 @@ grid-template-columns: repeat(4, 1fr);
       padding-top: 100%;
     }
   }
-  

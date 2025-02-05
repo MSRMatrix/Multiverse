@@ -24,9 +24,11 @@ export function clickPicture(
     setClickState({ ...clickState, firstCard: clickedCard });
     flipped.firstId = clickedCard.id
     flipped.classname = "flipped"
+    
   } else if (!clickState.secondCard) {
     setClickState({ ...clickState, secondCard: clickedCard });
     flipped.secondId = clickedCard.id
+
     if (clickState.firstCard.image === clickedCard.image) {
       setCounter(counter + 1);
       setCards((prevCards) =>

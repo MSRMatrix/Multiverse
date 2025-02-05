@@ -3,6 +3,7 @@ import Startsite from "./components/startsite/Startsite";
 import ColorGame from "./components/colorGame/ColorGame";
 import Memory from "./components/memory/memory/Game/Memory";
 import MemoryMenu from "./components/memory/memory/MemoryMenu";
+import MemoryStartingPage from "./components/memory/memory/MemoryStartingPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -14,7 +15,7 @@ function App() {
            element: <ColorGame />, 
           path: "/color-game" 
         },
-        { element: <MemoryMenu />, 
+        { element: <MemoryStartingPage />, 
           path: "/memory" ,
         },
       ],

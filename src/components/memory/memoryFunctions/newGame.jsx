@@ -4,8 +4,5 @@ export function newGame(setClickState, cards ,setCards, setCounter) {
       firstCard: null,
       secondCard: null,
       attempts: 0,
-    }),
-      setCards(
-        cards.map((card) => ({ ...card, revealed: false, found: false }))
-      );
+    })
   }

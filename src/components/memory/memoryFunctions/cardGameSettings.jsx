@@ -68,16 +68,17 @@ import cars17 from "../cards/cars/roberto-nickson-IOI3KCYsn0o-unsplash.jpg"
 import cars18 from "../cards/cars/roberto-nickson-Yp9FdEqaCdk-unsplash.jpg"
 import cars19 from "../cards/cars/serge-kutuzov-nm_UwlzQe_Q-unsplash.jpg"
 import cars20 from "../cards/cars/tyler-clemmensen-4gSavS9pe1s-unsplash.jpg"
+import { preloadImages } from "./preloadImages";
 // Cars
 
 
-export function changeDifficulty(e, cards, setCards, difficulty, cardChooser, setDifficulty, setCardChooser, setNewClass) {
-  const newDifficulty = e.target.value; 
-  setDifficulty(newDifficulty); 
+export function cardGameSettings(setCards, difficulty, cardChooser, setNewClass, cards, setImagesLoaded, setTest) {
+  if(!cardChooser && !difficulty){
+    return;
+  }
+  const cardNumber = cardNumberFunction(difficulty, setNewClass);
   
-  const cardNumber = cardNumberFunction(newDifficulty, setNewClass);
-  
-  const selectedImages = cutePictures(e, cardChooser);
+  const selectedImages = cutePictures(cardChooser);
   
   const uniqueImages = [...new Set(selectedImages)];
 
@@ -88,19 +89,29 @@ export function changeDifficulty(e, cards, setCards, difficulty, cardChooser, se
   const pairedCards = [...imagesToShow, ...imagesToShow];
 
   const shuffledCards = pairedCards.sort(() => Math.random() - 0.5);
-  
-  setCards(
-    shuffledCards.map((item, index) => ({
+
+   const newDeck = shuffledCards.map((item, index) => ({
       id: index + 1,
       name: `Card ${index + 1}`,
       image: item,
       revealed: false,
       found: false,
     }))
-  );
+  
+    if(setImagesLoaded && setTest){
+      const imageUrls = newDeck.map((card) => card.image);
+  preloadImages(imageUrls, cards, setImagesLoaded, setTest);
+    }
+
+
+  setTimeout(() => {
+   setCards(newDeck) 
+  }, 500);
+
+  return newDeck
 }
 
-function cardNumberFunction(difficulty, setNewClass) {
+export function cardNumberFunction(difficulty, setNewClass) {
   switch (difficulty) {
     case "Easy":
       setNewClass("easy-cards")
@@ -120,7 +131,7 @@ function cardNumberFunction(difficulty, setNewClass) {
   }
 }
 
-function cutePictures(e, cardChooser) {
+function cutePictures(cardChooser) {
   const theme = cardChooser;
   let images = [];
 

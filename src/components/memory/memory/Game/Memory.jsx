@@ -2,12 +2,11 @@ import { NavLink, useNavigate } from "react-router";
 import questionMark from "../../cards/question-mark.png";
 import "./memory.css";
 import { clickPicture } from "../../memoryFunctions/clickPicture";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MemoryContext } from "../memoryContext/MemoryContext";
 const Memory = ({
   clickState,
   setClickState,
-  cards,
-  setCards,
   newClass,
   setCounter,
   counter,
@@ -16,16 +15,16 @@ const Memory = ({
   setDifficulty,
   gameTime,
   setGameTime,
-  difficulty
+  difficulty,
+  test
 }) => {
-
+  const {cards, setCards} = useContext(MemoryContext);
   const navigate = useNavigate()
   const [flipped, setFlipped] = useState({
     classname: "",
     firstId: "",
     secondId: ""
   })
-  console.log(clickState);
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -44,6 +43,9 @@ const Memory = ({
 
     return () => clearInterval(interval);
   }, []);
+
+  
+  
   return (
     <>
       <div className="memory">
@@ -73,32 +75,38 @@ const Memory = ({
         <div className={`cards-container ${newClass}`}>
           {cards.map((item) => (
             <div className="card-wrapper" key={item.id}>
-              <img className={flipped.firstId === item.id || flipped.secondId === item.id || item.found ? flipped.classname : ""}
-                style={{
-                  cursor:
-                    item.revealed ||
-                    (clickState.firstCard && clickState.secondCard)
-                      ? "default"
-                      : "",
-                }}
-                onClick={(e) =>
-                  clickPicture(
-                    e,
-                    item,
-                    cards,
-                    setCards,
-                    clickState,
-                    setClickState,
-                    setCounter,
-                    counter,
-                    flipped,
-                    setFlipped
-                  )
-                }
-                src={item.revealed ? item.image : questionMark}
-                alt="Memory card"
-              />
-            </div>
+            <img
+              className={
+                flipped.firstId === item.id || flipped.secondId === item.id || item.found
+                  ? flipped.classname
+                  : ""
+              }
+              style={{
+                cursor:
+                  item.revealed || (clickState.firstCard && clickState.secondCard)
+                    ? "default"
+                    : "",
+              }}
+              onClick={(e) =>
+                clickPicture(
+                  e,
+                  item,
+                  cards,
+                  setCards,
+                  clickState,
+                  setClickState,
+                  setCounter,
+                  counter,
+                  flipped,
+                  setFlipped
+                )
+              }
+              src={questionMark}
+              alt="Memory card"
+            />
+            {test.find((pic) => Number(pic.key) === item.id) ?? null}
+          </div>
+          
           ))}
         </div>
       </div>

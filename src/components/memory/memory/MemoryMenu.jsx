@@ -1,11 +1,10 @@
-import { NavLink } from "react-router";
-import { cardTheme } from "../memoryFunctions/cardTheme";
-import { changeDifficulty } from "../memoryFunctions/changeDifficulty";
-import { newGame } from "../memoryFunctions/newGame";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { cardGameSettings } from "../memoryFunctions/cardGameSettings";
 import Memory from "./Game/Memory";
-import "./memoryMenu.css";
 import FinishedGame from "./finishedGame/FinishedGame";
+import "./memoryMenu.css";
+import { preloadImages } from "../memoryFunctions/preloadImages";
+import { MemoryContext } from "./memoryContext/MemoryContext";
 
 const MemoryMenu = () => {
   const [clickState, setClickState] = useState({
@@ -15,14 +14,34 @@ const MemoryMenu = () => {
   });
   const [counter, setCounter] = useState(0);
   const [newClass, setNewClass] = useState("");
-  const [cards, setCards] = useState([]);
+  const {cards, setCards} = useContext(MemoryContext);
   const [difficulty, setDifficulty] = useState("");
   const [cardChooser, setCardChooser] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
-  const [gameTime, setGameTime] = useState({
-    seconds: 0,
-    minutes: 0,
-  });
+  const [gameTime, setGameTime] = useState({ seconds: 0, minutes: 0 });
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [test, setTest] = useState(null);
+
+  useEffect(() => {
+    if (cards.length > 0) {
+      const imageUrls = cards.map((card) => card.image);
+      preloadImages(imageUrls, cards, setImagesLoaded, setTest);
+    }
+  }, [cards]);
+
+  useEffect(() => {
+
+    if (difficulty && cardChooser) {
+      cardGameSettings(setCards, difficulty, cardChooser, setNewClass,cards);
+    }
+  }, [difficulty, cardChooser]);
+  
+  if (!imagesLoaded && cards.length > 0) {
+    return <h2>Loading images...</h2>;
+  }
+
+  
+  
 
   return (
     <>
@@ -35,16 +54,7 @@ const MemoryMenu = () => {
               <select
                 value={difficulty}
                 onChange={(e) =>
-                  changeDifficulty(
-                    e,
-                    cards,
-                    setCards,
-                    difficulty,
-                    cardChooser,
-                    setDifficulty,
-                    setCardChooser,
-                    setNewClass
-                  )
+                 setDifficulty(e.target.value)
                 }
               >
                 <option value="" disabled>
@@ -66,18 +76,11 @@ const MemoryMenu = () => {
           <div className="card-theme">
             <h2>Card Theme</h2>
             <div className="select-container">
-              <select
+              <select 
+              disabled={!difficulty}
                 value={cardChooser}
                 onChange={(e) =>
-                  cardTheme(
-                    e,
-                    cardChooser,
-                    setCardChooser,
-                    cards,
-                    setCards,
-                    difficulty,
-                    setNewClass
-                  )
+                  setCardChooser(e.target.value)
                 }
               >
                 <option value="" disabled>
@@ -107,8 +110,6 @@ const MemoryMenu = () => {
         <Memory
           clickState={clickState}
           setClickState={setClickState}
-          cards={cards}
-          setCards={setCards}
           newClass={newClass}
           setCounter={setCounter}
           counter={counter}
@@ -118,12 +119,12 @@ const MemoryMenu = () => {
           gameTime={gameTime}
           setGameTime={setGameTime}
           difficulty={difficulty}
+          test={test}
+          setTest={setTest}
         />
       ) : (
         <FinishedGame
           setClickState={setClickState}
-          cards={cards}
-          setCards={setCards}
           setCounter={setCounter}
           setGameStarted={setGameStarted}
           setCardChooser={setCardChooser}
@@ -131,6 +132,10 @@ const MemoryMenu = () => {
           difficulty={difficulty}
           gameTime={gameTime}
           setGameTime={setGameTime}
+          cardChooser={cardChooser}
+          setNewClass={setNewClass}
+          setImagesLoaded={setImagesLoaded}
+          setTest={setTest}
         />
       )}
     </>
