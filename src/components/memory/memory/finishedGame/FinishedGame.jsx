@@ -4,6 +4,8 @@ import "./finishedGame.css";
 import { cardGameSettings } from "../../memoryFunctions/cardGameSettings";
 import { preloadImages } from "../../memoryFunctions/preloadImages";
 import { MemoryContext } from "../memoryContext/MemoryContext";
+import { displayRecord } from "../../memoryFunctions/displayRecord";
+import { isNewRecord } from "../../memoryFunctions/isNewRecord";
 
 const FinishedGame = ({
   setClickState,
@@ -22,49 +24,18 @@ const FinishedGame = ({
   const {cards, setCards} = useContext(MemoryContext);
   const [record, setRecord] = useState(localStorage.getItem(difficulty));
 
-  if (record === null) {
-    localStorage.setItem(difficulty, `${gameTime.minutes}:${gameTime.seconds}`);
-  }
-
-
-  if (record) {
-    const minutes = localStorage.getItem(difficulty).split(":")[0];
-    const seconds = localStorage.getItem(difficulty).split(":")[1];
-    if (minutes > gameTime.minutes) {
-      return localStorage.setItem(
-        difficulty,
-        `${gameTime.minutes}:${gameTime.seconds}`
-      );
-    }
-
-    if (Number(seconds) > gameTime.seconds) {
-      localStorage.setItem(difficulty, `${minutes}:${gameTime.seconds}`);
-      return setRecord(localStorage.getItem(difficulty));
-    }
-  }
-
-   
+  useEffect(() => {
+    setTimeout(() => {
+    isNewRecord(record, difficulty, gameTime, setRecord)  
+    }, 1000);
+    
+  }, [])
 
   return (
     <>
       <dialog open className="finished-game">
         <p>Mode: {difficulty}</p>
-        {record ? (
-          <p>
-            Your record:{" "}
-            {`${
-              record.split(":")[0] <= 10
-                ? `0${record.split(":")[0]}`
-                : record.split(":")[0]
-            }:${
-              record.split(":")[1] < 10
-                ? `0${record.split(":")[1]}`
-                : record.split(":")[1]
-            }`}
-          </p>
-        ) : (
-          ""
-        )}
+       {displayRecord(record, gameTime)}
         <p>
           Time:{" "}
           {gameTime.minutes <= 10 ? `0${gameTime.minutes}` : gameTime.minutes}:
@@ -74,10 +45,13 @@ const FinishedGame = ({
           onClick={() => {
             cardGameSettings(setCards, difficulty, cardChooser, setNewClass, cards, setImagesLoaded, setTest),
               newGame(setClickState, cards, setCards, setCounter),
+              setTimeout(() => {
               setGameTime({
                 seconds: 0,
                 minutes: 0,
-              });
+              });  
+              }, 1000)
+              
           }}
         >
           Restart the Game

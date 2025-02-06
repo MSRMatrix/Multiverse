@@ -1,0 +1,43 @@
+.loading-container{
+    
+    .fa-circle-notch{
+    font-size: 40px;
+    transform: rotate(360deg);
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    }
+
+    
+}.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  
+    .loading-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+    }
+  
+    .loading-icon {
+      margin-top: 10px;
+  
+      .fa-circle-notch {
+        font-size: 40px;
+        animation: spin 1.5s linear infinite;
+      }
+    }
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  

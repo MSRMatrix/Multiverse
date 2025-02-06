@@ -5,6 +5,7 @@ import FinishedGame from "./finishedGame/FinishedGame";
 import "./memoryMenu.css";
 import { preloadImages } from "../memoryFunctions/preloadImages";
 import { MemoryContext } from "./memoryContext/MemoryContext";
+import LoadingComponent from "../../loadingComponent/LoadingComponent";
 
 const MemoryMenu = () => {
   const [clickState, setClickState] = useState({
@@ -37,7 +38,7 @@ const MemoryMenu = () => {
   }, [difficulty, cardChooser]);
   
   if (!imagesLoaded && cards.length > 0) {
-    return <h2>Loading images...</h2>;
+    return <LoadingComponent text={"Your game will be prepared shortly!"}/>;
   }
 
   

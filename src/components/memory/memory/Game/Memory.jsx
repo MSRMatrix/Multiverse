@@ -4,6 +4,8 @@ import "./memory.css";
 import { clickPicture } from "../../memoryFunctions/clickPicture";
 import { useContext, useEffect, useState } from "react";
 import { MemoryContext } from "../memoryContext/MemoryContext";
+import LoadingComponent from "../../../loadingComponent/LoadingComponent";
+
 const Memory = ({
   clickState,
   setClickState,
@@ -18,39 +20,58 @@ const Memory = ({
   difficulty,
   test
 }) => {
-  const {cards, setCards} = useContext(MemoryContext);
-  const navigate = useNavigate()
+  const { cards, setCards } = useContext(MemoryContext);
+  const navigate = useNavigate();
   const [flipped, setFlipped] = useState({
     classname: "",
     firstId: "",
-    secondId: ""
-  })
-  
+    secondId: "",
+  });
+  const [questionMarksLoaded, setQuestionMarksLoaded] = useState(false);
+
+  // Question Mark Image Preloading
   useEffect(() => {
-    const interval = setInterval(() => {
-      setGameTime((prevTime) => {
-        let newSeconds = prevTime.seconds + 1;
-        let newMinutes = prevTime.minutes;
-
-        if (newSeconds >= 60) {
-          newSeconds = 0;
-          newMinutes += 1;
-        }
-
-        return { seconds: newSeconds, minutes: newMinutes };
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
+    const img = new Image();
+    img.src = questionMark;
+    img.onload = () => setQuestionMarksLoaded(true);
   }, []);
 
-  
-  
+  // Timer starten, wenn die Karten geladen sind und der Cooldown abgelaufen ist
+  useEffect(() => {
+    if (test && questionMarksLoaded) {
+      const interval = setInterval(() => {
+        setGameTime((prevTime) => {
+          let newSeconds = prevTime.seconds + 1;
+          let newMinutes = prevTime.minutes;
+
+          if (newSeconds >= 60) {
+            newSeconds = 0;
+            newMinutes += 1;
+          }
+
+          return { seconds: newSeconds, minutes: newMinutes };
+        });
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [test, questionMarksLoaded]);
+
+  // Cooldown von 5 Sekunden setzen
+
+
+  // Ladebildschirm anzeigen, solange Cooldown oder Bilder nicht geladen sind
+  if (!questionMarksLoaded) {
+    return <LoadingComponent text={"Cards are loading..."} />;
+  }
+
+  // Timer und Spiel anzeigen
   return (
     <>
       <div className="memory">
         <div className="memory-top">
-          <i onClick={() => {
+          <i
+            onClick={() => {
               setGameStarted(false),
                 setCounter(0),
                 setCards([]),
@@ -59,54 +80,64 @@ const Memory = ({
                 setGameTime({
                   seconds: 0,
                   minutes: 0,
-                },navigate("/memory"));
-            }} className="fa-regular fa-rectangle-xmark back-xmark"></i>
-        <div className="attempts-difficulty-timer"> 
-          <p>attempts: {counter}</p>
-          <p>{difficulty}</p>
-          <p>
-            Time:{" "}
-            {gameTime.minutes < 10 ? `0${gameTime.minutes}` : gameTime.minutes}:
-            {gameTime.seconds >= 10 ? gameTime.seconds : `0${gameTime.seconds}`}
-          </p>
-          </div> 
+                });
+              navigate("/memory");
+            }}
+            className="fa-regular fa-rectangle-xmark back-xmark"
+          ></i>
+          <div className="attempts-difficulty-timer">
+            <p>attempts: {counter}</p>
+            <p>{difficulty}</p>
+            <p>
+              Time:{" "}
+              {gameTime.minutes < 10
+                ? `0${gameTime.minutes}`
+                : gameTime.minutes}
+              :
+              {gameTime.seconds >= 10
+                ? gameTime.seconds
+                : `0${gameTime.seconds}`}
+            </p>
+          </div>
         </div>
 
         <div className={`cards-container ${newClass}`}>
           {cards.map((item) => (
             <div className="card-wrapper" key={item.id}>
-            <img
-              className={
-                flipped.firstId === item.id || flipped.secondId === item.id || item.found
-                  ? flipped.classname
-                  : ""
-              }
-              style={{
-                cursor:
-                  item.revealed || (clickState.firstCard && clickState.secondCard)
-                    ? "default"
-                    : "",
-              }}
-              onClick={(e) =>
-                clickPicture(
-                  e,
-                  item,
-                  cards,
-                  setCards,
-                  clickState,
-                  setClickState,
-                  setCounter,
-                  counter,
-                  flipped,
-                  setFlipped
-                )
-              }
-              src={questionMark}
-              alt="Memory card"
-            />
-            {test.find((pic) => Number(pic.key) === item.id) ?? null}
-          </div>
-          
+              <img
+                className={
+                  flipped.firstId === item.id ||
+                  flipped.secondId === item.id ||
+                  item.found
+                    ? flipped.classname
+                    : ""
+                }
+                style={{
+                  cursor:
+                    item.revealed ||
+                    (clickState.firstCard && clickState.secondCard)
+                      ? "default"
+                      : "",
+                }}
+                onClick={(e) =>
+                  clickPicture(
+                    e,
+                    item,
+                    cards,
+                    setCards,
+                    clickState,
+                    setClickState,
+                    setCounter,
+                    counter,
+                    flipped,
+                    setFlipped
+                  )
+                }
+                src={questionMark}
+                alt="Memory card"
+              />
+              {test?.find((pic) => Number(pic.key) === item.id) ?? null}
+            </div>
           ))}
         </div>
       </div>
