@@ -1,4 +1,5 @@
 .finished-game {
+  position: relative;
   background-color: #5b6278;
   width: 400px;
   height: 400px;

@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { newGame } from "../../memoryFunctions/newGame";
 import "./finishedGame.css";
 import { cardGameSettings } from "../../memoryFunctions/cardGameSettings";
-import { preloadImages } from "../../memoryFunctions/preloadImages";
 import { MemoryContext } from "../memoryContext/MemoryContext";
 import { displayRecord } from "../../memoryFunctions/displayRecord";
 import { isNewRecord } from "../../memoryFunctions/isNewRecord";
@@ -25,11 +24,8 @@ const FinishedGame = ({
   const [record, setRecord] = useState(localStorage.getItem(difficulty));
 
   useEffect(() => {
-    setTimeout(() => {
-    isNewRecord(record, difficulty, gameTime, setRecord)  
-    }, 1000);
-    
-  }, [])
+    isNewRecord(record, difficulty, gameTime, setRecord)
+  }, []) 
 
   return (
     <>
@@ -45,12 +41,10 @@ const FinishedGame = ({
           onClick={() => {
             cardGameSettings(setCards, difficulty, cardChooser, setNewClass, cards, setImagesLoaded, setTest),
               newGame(setClickState, cards, setCards, setCounter),
-              setTimeout(() => {
               setGameTime({
                 seconds: 0,
                 minutes: 0,
               });  
-              }, 1000)
               
           }}
         >

@@ -68,11 +68,11 @@ import cars17 from "../cards/cars/roberto-nickson-IOI3KCYsn0o-unsplash.jpg"
 import cars18 from "../cards/cars/roberto-nickson-Yp9FdEqaCdk-unsplash.jpg"
 import cars19 from "../cards/cars/serge-kutuzov-nm_UwlzQe_Q-unsplash.jpg"
 import cars20 from "../cards/cars/tyler-clemmensen-4gSavS9pe1s-unsplash.jpg"
-import { preloadImages } from "./preloadImages";
+
 // Cars
 
 
-export function cardGameSettings(setCards, difficulty, cardChooser, setNewClass, cards, setImagesLoaded, setTest) {
+export function cardGameSettings(setCards, difficulty, cardChooser, setNewClass) {
   if(!cardChooser && !difficulty){
     return;
   }
@@ -97,16 +97,7 @@ export function cardGameSettings(setCards, difficulty, cardChooser, setNewClass,
       revealed: false,
       found: false,
     }))
-  
-    if(setImagesLoaded && setTest){
-      const imageUrls = newDeck.map((card) => card.image);
-  preloadImages(imageUrls, cards, setImagesLoaded, setTest);
-    }
-
-
-  setTimeout(() => {
    setCards(newDeck) 
-  }, 500);
 
   return newDeck
 }

@@ -20,15 +20,8 @@ const MemoryMenu = () => {
   const [cardChooser, setCardChooser] = useState("");
   const [gameStarted, setGameStarted] = useState(false);
   const [gameTime, setGameTime] = useState({ seconds: 0, minutes: 0 });
-  const [imagesLoaded, setImagesLoaded] = useState(false);
   const [test, setTest] = useState(null);
-
-  useEffect(() => {
-    if (cards.length > 0) {
-      const imageUrls = cards.map((card) => card.image);
-      preloadImages(imageUrls, cards, setImagesLoaded, setTest);
-    }
-  }, [cards]);
+  const [running, setRunning] = useState(true)
 
   useEffect(() => {
 
@@ -37,13 +30,17 @@ const MemoryMenu = () => {
     }
   }, [difficulty, cardChooser]);
   
-  if (!imagesLoaded && cards.length > 0) {
-    return <LoadingComponent text={"Your game will be prepared shortly!"}/>;
-  }
-
+  useEffect(() => {
+   if(cards.filter((item) => item.found === false).length <= 0) {
+    setTimeout(() => {
+      setRunning(false)
+    }, 2000);
+      
+   }else{
+    setRunning(true)
+   }
+  }, [cards])
   
-  
-
   return (
     <>
       {!gameStarted ? (
@@ -107,7 +104,7 @@ const MemoryMenu = () => {
             Start Game
           </button>
         </dialog>
-      ) : cards.map((item) => item.found).includes(false) ? (
+      ) : running ? (
         <Memory
           clickState={clickState}
           setClickState={setClickState}
@@ -135,7 +132,6 @@ const MemoryMenu = () => {
           setGameTime={setGameTime}
           cardChooser={cardChooser}
           setNewClass={setNewClass}
-          setImagesLoaded={setImagesLoaded}
           setTest={setTest}
         />
       )}

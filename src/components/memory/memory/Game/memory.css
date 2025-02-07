@@ -77,7 +77,7 @@
 }
 
 /* Card Image Styling */
-.cards-container img {
+.cards-container img,  .cards-container section{
   position: absolute;
   top: 0;
   left: 0;
@@ -87,19 +87,26 @@
   max-height: 100px;
   object-fit: cover;
   border-radius: 5px;
-  transition: transform 1s ease-in-out, opacity 0.3s ease;
+  transition: all 1s ease-in-out;
   cursor: pointer;
 }
 
-.flipped {
-  transform: rotateY(90deg);
+.cards-container section{
+  background-color: #3373da; 
 }
 
 .revealed-card {
-  transform: rotateY(180deg);
+
 }
 
-/* Card Layout for Different Difficulties */
+.memory-images {
+  transform: scale(0);
+}
+
+.flipped{
+  
+}
+
 .easy-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -120,9 +127,7 @@
 }
 
 /* Memory Image Styling */
-.memory-images {
-  transform: rotateY(90deg);
-}
+
 
 /* Back X Mark Styling */
 .back-xmark {

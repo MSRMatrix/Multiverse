@@ -1,10 +1,11 @@
-import { NavLink, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import questionMark from "../../cards/question-mark.png";
 import "./memory.css";
 import { clickPicture } from "../../memoryFunctions/clickPicture";
 import { useContext, useEffect, useState } from "react";
 import { MemoryContext } from "../memoryContext/MemoryContext";
 import LoadingComponent from "../../../loadingComponent/LoadingComponent";
+import { preloadImages } from "../../memoryFunctions/preloadImages";
 
 const Memory = ({
   clickState,
@@ -18,27 +19,16 @@ const Memory = ({
   gameTime,
   setGameTime,
   difficulty,
-  test
+  test,
+  setTest,
 }) => {
   const { cards, setCards } = useContext(MemoryContext);
   const navigate = useNavigate();
-  const [flipped, setFlipped] = useState({
-    classname: "",
-    firstId: "",
-    secondId: "",
-  });
-  const [questionMarksLoaded, setQuestionMarksLoaded] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
 
-  // Question Mark Image Preloading
+  
   useEffect(() => {
-    const img = new Image();
-    img.src = questionMark;
-    img.onload = () => setQuestionMarksLoaded(true);
-  }, []);
-
-  // Timer starten, wenn die Karten geladen sind und der Cooldown abgelaufen ist
-  useEffect(() => {
-    if (test && questionMarksLoaded) {
+    if(cards.map((item) => item.found).includes(false)){
       const interval = setInterval(() => {
         setGameTime((prevTime) => {
           let newSeconds = prevTime.seconds + 1;
@@ -55,15 +45,20 @@ const Memory = ({
 
       return () => clearInterval(interval);
     }
-  }, [test, questionMarksLoaded]);
+      
+  }, [cards.map((item) => item.found).includes(false)]);
 
-  // Cooldown von 5 Sekunden setzen
-
-
-  // Ladebildschirm anzeigen, solange Cooldown oder Bilder nicht geladen sind
-  if (!questionMarksLoaded) {
-    return <LoadingComponent text={"Cards are loading..."} />;
+  useEffect(() => {
+    if (cards.length > 0) {
+      const imageUrls = cards.map((card) => card.image);
+      preloadImages(imageUrls, cards, setImagesLoaded, setTest);
+    }
+  }, [cards]);
+  
+  if (!imagesLoaded && cards.length > 0) {
+    return <LoadingComponent text={"Your game will be prepared shortly!"}/>;
   }
+
 
   // Timer und Spiel anzeigen
   return (
@@ -104,14 +99,7 @@ const Memory = ({
         <div className={`cards-container ${newClass}`}>
           {cards.map((item) => (
             <div className="card-wrapper" key={item.id}>
-              <img
-                className={
-                  flipped.firstId === item.id ||
-                  flipped.secondId === item.id ||
-                  item.found
-                    ? flipped.classname
-                    : ""
-                }
+              <section
                 style={{
                   cursor:
                     item.revealed ||
@@ -129,13 +117,11 @@ const Memory = ({
                     setClickState,
                     setCounter,
                     counter,
-                    flipped,
-                    setFlipped
                   )
                 }
                 src={questionMark}
                 alt="Memory card"
-              />
+              ></section>
               {test?.find((pic) => Number(pic.key) === item.id) ?? null}
             </div>
           ))}

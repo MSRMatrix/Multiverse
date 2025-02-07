@@ -1,9 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Startsite from "./components/startsite/Startsite";
 import ColorGame from "./components/colorGame/ColorGame";
-import Memory from "./components/memory/memory/Game/Memory";
-import MemoryMenu from "./components/memory/memory/MemoryMenu";
 import MemoryStartingPage from "./components/memory/memory/MemoryStartingPage";
+import JumpAndRun from "./components/jumpAndRun/JumpAndRun";
 
 function App() {
   const router = createBrowserRouter([
@@ -18,6 +17,10 @@ function App() {
         { element: <MemoryStartingPage />, 
           path: "/memory" ,
         },
+        {
+          element: <JumpAndRun />,
+          path: "/jump-and-run"
+        }
       ],
     },
   ]);

@@ -9,7 +9,6 @@ export function clickPicture(
   setClickState,
   setCounter,
   counter,
-  flipped
 ) {
   if (clickedCard.revealed || clickedCard.found) return;
   if (clickState.firstCard && clickState.secondCard) return;
@@ -21,12 +20,8 @@ export function clickPicture(
 
   if (!clickState.firstCard) {
     setClickState({ ...clickState, firstCard: clickedCard });
-    flipped.firstId = clickedCard.id;
-    flipped.classname = "flipped";
   } else if (!clickState.secondCard) {
     setClickState({ ...clickState, secondCard: clickedCard });
-    flipped.secondId = clickedCard.id;
-
     if (clickState.firstCard.image === clickedCard.image) {
       setCounter(counter + 1);
       setCards((prevCards) =>
@@ -38,8 +33,6 @@ export function clickPicture(
       );
       resetClickState(setClickState, clickState);
       setTimeout(() => {
-        flipped.firstId = "";
-        flipped.secondId = "";
       }, 1000);
     } else {
       setCounter(counter + 1);
@@ -50,9 +43,6 @@ export function clickPicture(
           )
         );
         resetClickState(setClickState, clickState);
-
-        flipped.firstId = "";
-        flipped.secondId = "";
       }, 1000);
     }
   }
