@@ -3,6 +3,7 @@ import Startsite from "./components/startsite/Startsite";
 import ColorGame from "./components/colorGame/ColorGame";
 import MemoryStartingPage from "./components/memory/memory/MemoryStartingPage";
 import JumpAndRun from "./components/jumpAndRun/JumpAndRun";
+import GameSettingsJNR from "./components/jumpAndRun/gameSettingsJNR/GameSettingsJNR";
 
 function App() {
   const router = createBrowserRouter([
@@ -19,7 +20,7 @@ function App() {
         },
         {
           element: <JumpAndRun />,
-          path: "/jump-and-run"
+          path: "/jump-and-run",
         }
       ],
     },
