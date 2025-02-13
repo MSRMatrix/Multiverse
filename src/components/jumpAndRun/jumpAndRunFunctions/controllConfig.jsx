@@ -2,7 +2,7 @@ export function controllConfig() {
   if (!localStorage.getItem("jumpnRun")) {
     localStorage.setItem(
       "jumpnRun",
-      "jump:ArrowUp:down:ArrowDown:right:ArrowRight:left:ArrowLeft"
+      "jump:w:left:a:down:s:right:d"
     );
   }
   const stored = localStorage.getItem("jumpnRun");

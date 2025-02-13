@@ -1,5 +1,6 @@
 import "./level.css";
 import Player from "../player/Player";
+import GameControll from "../gameControll/GameControll";
 
 const Level = ({
   upDown,
@@ -11,6 +12,7 @@ const Level = ({
   jumpCooldown,
   setLeftRight,
 }) => {
+  
   return (
     <>
       <div className="level-1">
@@ -25,6 +27,14 @@ const Level = ({
           setLeftRight={setLeftRight}
         />
       </div>
+      <GameControll 
+          setKey={setKey}
+          setUpDown={setUpDown}
+          setJumpCooldown={setJumpCooldown}
+          controll={controll}
+          jumpCooldown={jumpCooldown}
+          setLeftRight={setLeftRight}
+          upDown={upDown}/>
     </>
   );
 };

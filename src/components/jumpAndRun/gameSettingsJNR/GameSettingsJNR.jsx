@@ -1,8 +1,10 @@
 import KeyboardComponent from "../keyboardComponent/KeyboardComponent";
 import { openDialog } from "../jumpAndRunFunctions/openDialog";
 import ControllWindow from "../controllWindow/ControllWindow";
+import { useState } from "react";
 
 const GameSettingsJNR = ({controll, key, isOpen, keyName, setIsOpen, setKeyName, setControll}) => {
+  const [itemToData, setItemToData] = useState("")
     return(
     
     <>
@@ -14,7 +16,7 @@ const GameSettingsJNR = ({controll, key, isOpen, keyName, setIsOpen, setKeyName,
             <legend>{item.key}</legend>
             <button
               name={item.key}
-              onClick={(event) => openDialog(event, item, setKeyName, setIsOpen)}
+              onClick={(event) => {setItemToData(item), openDialog(event, item, setKeyName, setIsOpen)}}
             >
               {item.value}
             </button>
@@ -33,7 +35,7 @@ const GameSettingsJNR = ({controll, key, isOpen, keyName, setIsOpen, setKeyName,
         ))}
       </div>
     
-    <KeyboardComponent />
+    <KeyboardComponent data={itemToData} controll={controll} setKeyName={setKeyName} setControll={setControll}/>
     </>
     
 )
