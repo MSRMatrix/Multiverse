@@ -15,8 +15,7 @@ const GameControll = ({
   const intervalRef = useRef(null);
 
   function startHolding(e) {
-    console.log(e.target.textContent);
-    const event = { key: e.target.textContent };
+    const event = { value: e.key, key: e.value };
 
     if (!intervalRef.current) {
       intervalRef.current = setInterval(() => {
@@ -34,19 +33,20 @@ const GameControll = ({
   }
 
   return (
-    <div>
+    <div className="your-controll">
 
     {controll
       .filter((item) => item.key === "jump")
       .map((item, key) => (
         <button
-          className="jump key"
+          className="key"
           key={key}
-          onMouseDown={() => startHolding(item.key)}
+          onMouseDown={() => startHolding(item)}
           onMouseUp={stopHolding}
           onMouseLeave={stopHolding}
-          onTouchStart={() => startHolding(item.key)}
+          onTouchStart={() => startHolding(item)}
           onTouchEnd={stopHolding}
+          onContextMenu={(e) => e.preventDefault()}
         >
           {item.value}
         </button>
@@ -59,11 +59,12 @@ const GameControll = ({
           <button
             className="key"
             key={key}
-            onMouseDown={() => startHolding(item.key)}
+            onMouseDown={() => startHolding(item)}
             onMouseUp={stopHolding}
             onMouseLeave={stopHolding}
-            onTouchStart={() => startHolding(item.key)}
+            onTouchStart={() => startHolding(item)}
             onTouchEnd={stopHolding}
+            onContextMenu={(e) => e.preventDefault()}
           >
             {item.value}
           </button>

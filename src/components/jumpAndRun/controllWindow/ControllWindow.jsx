@@ -1,6 +1,8 @@
+import { useRef } from "react"
 import { changeKey } from "../jumpAndRunFunctions/changeKey.jsx"
 
 const ControllWindow = ({data, controll, setIsOpen, setKeyName, setControll}) => {
+    const ref = useRef(null)
 
     function giveRightKey(e, data, controll, setKeyName, setControl){
         const event = {

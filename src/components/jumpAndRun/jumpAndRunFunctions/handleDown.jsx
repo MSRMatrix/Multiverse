@@ -1,12 +1,6 @@
 import { handleUp } from "./handleUp";
 
-export const handleDown = (event, controll, setKey, jumpCooldown, setUpDown, setJumpCooldown, upDown, setLeftRight) => {
-    console.log(event.key);
-    
-    console.log(event.key.toLowerCase());
-    console.log(controll);
-    
-    
+export const handleDown = (event, controll, setKey, jumpCooldown, setUpDown, setJumpCooldown, upDown, setLeftRight) => {    
     if (event.key.toLowerCase() === "ArrowDown" || controll.filter((item) => item.value === event.key.toLowerCase()).length <= 0) return;
     setKey(event.key.toLowerCase());
     

@@ -3,8 +3,11 @@ import "./keyboardComponent.css"
 import "react-simple-keyboard/build/css/index.css";
 import { changeKey } from "../jumpAndRunFunctions/changeKey";
 
-const KeyboardComponent = ({data, controll, setKeyName, setControll}) => {
+const KeyboardComponent = ({data, controll, setKeyName, setControll, isOpen}) => {
     function keyFromDigitalKeyboard(e){
+      if(!isOpen){
+        return
+      }
         const event ={
             key: e.replace("{", "").replace("}", "")
         }

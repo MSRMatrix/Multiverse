@@ -5,11 +5,33 @@ import { useState } from "react";
 
 const GameSettingsJNR = ({controll, key, isOpen, keyName, setIsOpen, setKeyName, setControll}) => {
   const [itemToData, setItemToData] = useState("")
+  const [digitalKey, setDigitalKey] = useState(localStorage.getItem("digitalKeyboard") === "false" ? false : true)
+  if(!localStorage.getItem("digitalKeyboard")){
+    localStorage.setItem("digitalKeyboard", false)
+  }
+  
+
+  function digitalKeyboard(){
+    setDigitalKey((prevMode) => !prevMode)
+    if(localStorage.getItem("digitalKeyboard") === "false"){
+      localStorage.setItem("digitalKeyboard", true)
+    }else{
+      localStorage.setItem("digitalKeyboard", false)
+    }
+  }
+  
+  
     return(
     
     <>
     <div className="controll">
         <h2>Controll</h2>
+        
+        <div>
+          <p>Digital Keyboard: {digitalKey ? "Enabled" : "Disabled"}</p>
+        <input type="checkbox" checked={digitalKey} onChange={() => digitalKeyboard()}/>  
+        </div>
+        
         <p>Pressed Key: {key}</p>
         {controll.map((item, key) => (
           <fieldset key={key}>
@@ -35,7 +57,7 @@ const GameSettingsJNR = ({controll, key, isOpen, keyName, setIsOpen, setKeyName,
         ))}
       </div>
     
-    <KeyboardComponent data={itemToData} controll={controll} setKeyName={setKeyName} setControll={setControll}/>
+   <KeyboardComponent data={itemToData} controll={controll} setKeyName={setKeyName} setControll={setControll} isOpen={isOpen}/>
     </>
     
 )

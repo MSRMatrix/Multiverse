@@ -27,14 +27,15 @@ const Level = ({
           setLeftRight={setLeftRight}
         />
       </div>
-      <GameControll 
+      {localStorage.getItem("digitalKeyboard") === "true" ? <GameControll 
           setKey={setKey}
           setUpDown={setUpDown}
           setJumpCooldown={setJumpCooldown}
           controll={controll}
           jumpCooldown={jumpCooldown}
           setLeftRight={setLeftRight}
-          upDown={upDown}/>
+          upDown={upDown}/> : ""}
+      
     </>
   );
 };

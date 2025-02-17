@@ -1,8 +1,14 @@
-.left-down-right {
+.your-controll {
     display: flex;
-  }
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    touch-action: none;
+    -webkit-user-select: none; 
+    user-select: none;
 
-
-  .key{
-    
+    .key{
+      width: 100px;
+      height: 100px;
+    }
   }
