@@ -20,10 +20,10 @@ export const handleDown = (event, controll, setKey, jumpCooldown, setUpDown, set
     }
 
     if (left) {
-        setLeftRight(prev => prev - 10);
+        setLeftRight(prev => prev - 40);
     }
 
     if (right) {
-        setLeftRight(prev => prev + 10);
+        setLeftRight(prev => prev + 40);
     }
 };

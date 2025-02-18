@@ -26,6 +26,7 @@ const Level = ({
           jumpCooldown={jumpCooldown}
           setLeftRight={setLeftRight}
         />
+        <div className="obstacle"></div>
       </div>
       {localStorage.getItem("digitalKeyboard") === "true" ? <GameControll 
           setKey={setKey}
