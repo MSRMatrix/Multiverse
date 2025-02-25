@@ -1,17 +1,35 @@
-import { NavLink, Outlet } from "react-router";
-import "./startsite.css"
+import { NavLink, Outlet, useNavigate } from "react-router";
+import "./startsite.css";
+import { useState } from "react";
+import example from "../../assets/example.png"
+
 const Startsite = () => {
+  const [phone, setPhone] = useState([
+    { name: "color-game", icon: example },
+    { name: "memory", icon: example },
+    { name: "jump-and-run", icon: example },
+  ]);
+
+  const navigate = useNavigate()
+
   return (
-    <div className="startsite-container">
-      <div className="startsite-header">
-      <h1>Multiverse</h1>  
+    <div className="multiverse-phone">
+      <div className="phone-top">
+        <div className="camera-notch"></div>
       </div>
-      <div className="game-list">
-      <NavLink to="/color-game">Color Game</NavLink>  
-      <NavLink to="/memory">Memory</NavLink>
-      <NavLink to="/jump-and-run">Jump and run</NavLink>
+      <div className="phone-screen">
+        <div className="phone-name">Multiverse</div>
+        <div className="apps">
+          {phone.map((app, index) => (
+            <div key={index} className="app-div">
+              <NavLink to={`/${app.name}`}><img src={app.icon} alt={app.name.split("-").join(" ")}/></NavLink> 
+              <NavLink to={`/${app.name.split("-").join(" ")}`}>{app.name}</NavLink>
+            </div>
+          ))}
+        </div><Outlet />
       </div>
-     <Outlet />
+      <div onClick={() => navigate("/")} className="home-button"></div>
+      
     </div>
   );
 };
