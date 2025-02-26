@@ -10,7 +10,7 @@
     rgba(0, 0, 0, 0.09) 0px 8px 4px,
     rgba(0, 0, 0, 0.09) 0px 16px 8px,
     rgba(0, 0, 0, 0.09) 0px 32px 16px;
-  width: fit-content;
+  min-width: fit-content;
   border-radius: 10px;
   margin: 0 auto;
   border: #6d28d9 5px solid;
@@ -179,6 +179,7 @@
 
   .cards-container {
     width: 300px;
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .cards-container img {
