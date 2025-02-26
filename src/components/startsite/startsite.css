@@ -20,7 +20,7 @@
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  zoom: 135%;
+  zoom: 120%;
   transition: all 0.3s ease-in-out;
 }
 
