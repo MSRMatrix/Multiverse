@@ -7,12 +7,12 @@
 }
 
 .multiverse-phone {
-  background-color: var(--phone-border);
+  background-color: black;
   text-align: center;
   width: 320px;
   height: 600px;
   border-radius: 30px;
-  margin: 0px auto;
+  margin: 50px auto;
   position: relative;
   box-shadow: var(--boxShadow);
   border: 8px solid black;
@@ -28,11 +28,12 @@
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   width: 100vw;
   height: 100vh;
-  border-radius: 0;
   z-index: 1000;
-  zoom: 100%;
+  zoom: 80%;
+  
 }
 
 .phone-top {
