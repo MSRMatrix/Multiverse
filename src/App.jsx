@@ -4,6 +4,7 @@ import ColorGame from "./components/colorGame/ColorGame";
 import MemoryStartingPage from "./components/memory/memory/MemoryStartingPage";
 import JumpAndRun from "./components/jumpAndRun/JumpAndRun";
 import GameSettingsJNR from "./components/jumpAndRun/gameSettingsJNR/GameSettingsJNR";
+import Settings from "./components/settings/Settings";
 
 function App() {
   const router = createBrowserRouter([
@@ -11,6 +12,10 @@ function App() {
       element: <Startsite />,
       path: "/",
       children: [
+        {
+          element: <Settings />, 
+          path: "/settings" 
+        },
         {
            element: <ColorGame />, 
           path: "/color-game" 
