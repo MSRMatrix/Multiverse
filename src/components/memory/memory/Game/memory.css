@@ -159,7 +159,7 @@
 /* Medium to small screens */
 @media (max-width: 800px) {
   .cards-container {
-    width: 400px;
+    width: 300px;
   }
 }
 
@@ -178,8 +178,7 @@
   }
 
   .cards-container {
-    width: 300px;
-    grid-template-columns: repeat(4, 1fr);
+    width: 200px;
   }
 
   .cards-container img {
