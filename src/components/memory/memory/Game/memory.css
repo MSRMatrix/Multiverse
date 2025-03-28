@@ -58,8 +58,8 @@
   display: grid;
   margin: 0 auto;
   grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-  padding: 10px;
+  gap: 5px;
+  padding: 5px;
   width: 650px;
   max-width: 100%;
 }
@@ -95,16 +95,8 @@
   background-color: #3373da; 
 }
 
-.revealed-card {
-
-}
-
 .memory-images {
   transform: scale(0);
-}
-
-.flipped{
-  
 }
 
 .easy-cards {
@@ -169,16 +161,17 @@
     font-size: 12px;
   }
 
-  .back-xmark {
-    font-size: 25px;
-  }
-
+ 
   .normal-cards, .easy-cards {
     width: 300px;
+    grid-template-columns: repeat(4, 1fr);
   }
 
+  /* grid-templates anpassen */
+
   .cards-container {
-    width: 200px;
+    width: 230px;
+    grid-template-columns: repeat(6, 1fr);
   }
 
   .cards-container img {
